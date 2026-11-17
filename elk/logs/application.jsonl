@@ -1,0 +1,5 @@
+{"timestamp":"2026-11-17T18:00:00","level":"INFO","service":"flask-app","message":"Application started successfully"}
+{"timestamp":"2026-11-17T18:01:00","level":"INFO","service":"flask-app","message":"Health check successful"}
+{"timestamp":"2026-11-17T18:02:00","level":"WARNING","service":"flask-app","message":"High response time detected"}
+{"timestamp":"2026-11-17T18:03:00","level":"ERROR","service":"flask-app","message":"Demonstration error event"}
+{"timestamp":"2026-11-17T18:04:00","level":"INFO","service":"flask-app","message":"Monitoring system operational"}

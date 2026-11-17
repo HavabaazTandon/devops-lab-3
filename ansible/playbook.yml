@@ -1,0 +1,38 @@
+---
+- name: Configure and deploy DevSecOps application
+  hosts: local
+  become: false
+
+  tasks:
+    - name: Check Docker installation
+      command: docker --version
+      register: docker_version
+      changed_when: false
+
+    - name: Display Docker version
+      debug:
+        msg: "{{ docker_version.stdout }}"
+
+    - name: Validate Docker Compose configuration
+      command: docker compose config --quiet
+      args:
+        chdir: /mnt/c/DevOps-Lab3
+      changed_when: false
+
+    - name: Build and deploy application infrastructure
+      command: docker compose up -d --build
+      args:
+        chdir: /mnt/c/DevOps-Lab3
+
+    - name: Wait for Flask application
+      uri:
+        url: http://localhost:5000/health
+        status_code: 200
+      register: health_check
+      retries: 10
+      delay: 5
+      until: health_check.status == 200
+
+    - name: Display deployment result
+      debug:
+        msg: "DevSecOps application deployed successfully!"

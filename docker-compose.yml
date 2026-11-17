@@ -1,0 +1,30 @@
+services:
+  app:
+    build: ./app
+    container_name: devsecops-app
+    ports:
+      - "5000:5000"
+    environment:
+      FEATURE_ENABLED: "true"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    container_name: devsecops-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - app
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:12.1.1
+    container_name: devsecops-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: labadmin123
+    restart: unless-stopped
