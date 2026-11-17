@@ -7,3 +7,4 @@ tfplan
 *.tfplan
 .terraform.lock.hcl
 .env
+.venv/
